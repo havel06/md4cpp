@@ -10,17 +10,24 @@ public:
 	}
 private:
 	std::string m_result{};
-	void on_enter_block(MD_BLOCKTYPE type) override
+	void on_enter_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override
 	{
-		m_result += "<block>";
+		if (type == MD_BLOCK_H)
+		{
+			m_result += std::to_string(std::get<MD_BLOCK_H_DETAIL>(detail).level) + " ";
+		}
+		else
+		{
+			m_result += "<block>";
+		}
 	}
 
-	void on_leave_block(MD_BLOCKTYPE type) override
+	void on_leave_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override
 	{
 		m_result += "</block>";
 	}
 
-	void on_enter_span(MD_SPANTYPE type) override
+	void on_enter_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override
 	{
 		if (type == MD_SPAN_EM)
 		{
@@ -32,7 +39,7 @@ private:
 		}
 	}
 
-	void on_leave_span(MD_SPANTYPE type) override
+	void on_leave_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override
 	{
 		if (type == MD_SPAN_EM)
 		{
@@ -53,7 +60,7 @@ private:
 int main()
 {
 	my_parser parser;
-	parser.parse("fjfj *fdfdf* **lol** fdf");
+	parser.parse("# jdkjfkdjf \n \n ## fjkdjflsjdfls \n \n # jfkdflsjf \n \n fjfj *fdfdf* **lol** fdf");
 
 	std::cout << parser.get_result() << std::endl;
 
