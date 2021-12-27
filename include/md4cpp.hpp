@@ -13,11 +13,14 @@ namespace md4cpp
 		/**
 		 * Constructs the parser.
 		 *
-		 * @param flags Options for the parser. Please refer to
+		 * @param t_flags Options for the parser. Please refer to
 		 * <a href="https://github.com/mity/md4c/blob/master/src/md4c.h#L300">md4c headers</a>
 		 * to view the possible flags.
 		 */
-		parser(unsigned int flags = MD_DIALECT_COMMONMARK);
+		parser(unsigned int t_flags = MD_DIALECT_COMMONMARK)
+		{
+			this->m_flags = t_flags;
+		}
 		virtual ~parser() = default;
 		/**
 		 * Begins the parsing process.
@@ -89,43 +92,37 @@ namespace md4cpp
 		friend int text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* object);
 	};
 
-	parser::parser(unsigned int t_flags) //NOLINT
+	inline int enter_block(MD_BLOCKTYPE type, void* detail, void* object)
 	{
-		this->m_flags = t_flags;
-	}
-
-	int enter_block(MD_BLOCKTYPE type, void* detail, void* object) //NOLINT
-	{
-
 		static_cast<parser*>(object)->on_enter_block(type, cast_detail_block(detail, type));
 		return 0;
 	}
 
-	int leave_block(MD_BLOCKTYPE type, void* detail, void* object) //NOLINT
+	inline int leave_block(MD_BLOCKTYPE type, void* detail, void* object)
 	{
 		static_cast<parser*>(object)->on_leave_block(type, cast_detail_block(detail, type));
 		return 0;
 	}
 
-	int enter_span(MD_SPANTYPE type, void* detail, void* object) //NOLINT
+	inline int enter_span(MD_SPANTYPE type, void* detail, void* object)
 	{
 		static_cast<parser*>(object)->on_enter_span(type, cast_detail_span(detail, type));
 		return 0;
 	}
 	
-	int leave_span(MD_SPANTYPE type, void* detail, void* object) //NOLINT
+	inline int leave_span(MD_SPANTYPE type, void* detail, void* object)
 	{
 		static_cast<parser*>(object)->on_leave_span(type, cast_detail_span(detail, type));
 		return 0;
 	}
 
-	int text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* object) //NOLINT
+	inline int text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* object)
 	{
 		static_cast<parser*>(object)->on_text(std::string_view(text, size), type);
 		return 0;
 	}
 
-	void parser::parse(const std::string& source) //NOLINT
+	inline void parser::parse(const std::string &source)
 	{
 		MD_PARSER parser_data {
 			0,
@@ -138,7 +135,7 @@ namespace md4cpp
 			nullptr,
 			nullptr
 		};
-
 		md_parse(source.data(), source.size(), &parser_data, this);
 	}
+
 } //namespace md4cpp

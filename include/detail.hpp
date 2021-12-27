@@ -53,7 +53,7 @@ namespace md4cpp
 										span_a_detail, span_img_detail,
 										span_wikilink_detail>;
 
-	detail_variant cast_detail_block(void* detail, MD_BLOCKTYPE type) //NOLINT
+	inline detail_variant cast_detail_block(void* detail, MD_BLOCKTYPE type) //NOLINT
 	{
 		switch (type)
 		{
@@ -76,7 +76,7 @@ namespace md4cpp
 		}
 	}
 	
-	detail_variant cast_detail_span(void* detail, MD_SPANTYPE type) //NOLINT
+	inline detail_variant cast_detail_span(void* detail, MD_SPANTYPE type) //NOLINT
 	{
 		switch (type)
 		{
