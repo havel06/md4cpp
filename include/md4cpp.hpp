@@ -79,7 +79,7 @@ namespace md4cpp
 		 * <a href="https://github.com/mity/md4c/blob/master/src/md4c.h#L152">md4c headers</a>
 		 * to view the possible text types.
 		 */
-		virtual void on_text(const std::string& text, MD_TEXTTYPE type) {}
+		virtual void on_text(std::string_view text, MD_TEXTTYPE type) {}
 	private:
 		unsigned int m_flags;
 		friend int enter_block(MD_BLOCKTYPE type, void* detail, void* object);
@@ -121,7 +121,7 @@ namespace md4cpp
 
 	int text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* object) //NOLINT
 	{
-		static_cast<parser*>(object)->on_text(std::string(text, size), type);
+		static_cast<parser*>(object)->on_text(std::string_view(text, size), type);
 		return 0;
 	}
 

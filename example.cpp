@@ -163,7 +163,7 @@ private:
 		}
 	}
 
-	void on_text(const std::string& text, MD_TEXTTYPE type) override
+	void on_text(std::string_view text, MD_TEXTTYPE type) override
 	{
 		m_result += text;
 	}
