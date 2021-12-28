@@ -85,53 +85,38 @@ namespace md4cpp
 		virtual void on_text(std::string_view text, MD_TEXTTYPE type) {}
 	private:
 		unsigned int m_flags;
-		friend int enter_block(MD_BLOCKTYPE type, void* detail, void* object);
-		friend int leave_block(MD_BLOCKTYPE type, void* detail, void* object);
-		friend int enter_span(MD_SPANTYPE type, void* detail, void* object);
-		friend int leave_span(MD_SPANTYPE type, void* detail, void* object);
-		friend int text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* object);
 	};
-
-	inline int enter_block(MD_BLOCKTYPE type, void* detail, void* object)
-	{
-		static_cast<parser*>(object)->on_enter_block(type, cast_detail_block(detail, type));
-		return 0;
-	}
-
-	inline int leave_block(MD_BLOCKTYPE type, void* detail, void* object)
-	{
-		static_cast<parser*>(object)->on_leave_block(type, cast_detail_block(detail, type));
-		return 0;
-	}
-
-	inline int enter_span(MD_SPANTYPE type, void* detail, void* object)
-	{
-		static_cast<parser*>(object)->on_enter_span(type, cast_detail_span(detail, type));
-		return 0;
-	}
-	
-	inline int leave_span(MD_SPANTYPE type, void* detail, void* object)
-	{
-		static_cast<parser*>(object)->on_leave_span(type, cast_detail_span(detail, type));
-		return 0;
-	}
-
-	inline int text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* object)
-	{
-		static_cast<parser*>(object)->on_text(std::string_view(text, size), type);
-		return 0;
-	}
 
 	inline void parser::parse(const std::string &source)
 	{
 		MD_PARSER parser_data {
 			0,
 			this->m_flags,
-			enter_block,
-			leave_block,
-			enter_span,
-			leave_span,
-			text,
+			[](MD_BLOCKTYPE type, void* detail, void* object) -> int
+			{
+				static_cast<parser*>(object)->on_enter_block(type, cast_detail_block(detail, type));
+				return 0;
+			},
+			[](MD_BLOCKTYPE type, void* detail, void* object) -> int
+			{
+				static_cast<parser*>(object)->on_leave_block(type, cast_detail_block(detail, type));
+				return 0;
+			},
+			[](MD_SPANTYPE type, void* detail, void* object) -> int
+			{
+				static_cast<parser*>(object)->on_enter_span(type, cast_detail_span(detail, type));
+				return 0;
+			},
+			[](MD_SPANTYPE type, void* detail, void* object) -> int
+			{
+				static_cast<parser*>(object)->on_leave_span(type, cast_detail_span(detail, type));
+				return 0;
+			},
+			[](MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* object) -> int
+			{
+				static_cast<parser*>(object)->on_text(std::string_view(text, size), type);
+				return 0;
+			},
 			nullptr,
 			nullptr
 		};
