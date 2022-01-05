@@ -18,7 +18,7 @@ namespace md4cpp
 	{
 		attribute()	= delete;
 		attribute(const MD_ATTRIBUTE& t_attribute) : MD_ATTRIBUTE(t_attribute) {}
-		std::vector<substring> get_substrings()
+		std::vector<substring> get_substrings() const
 		{
 			if (this->text == nullptr)
 			{

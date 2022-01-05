@@ -15,19 +15,19 @@ class my_parser : public md4cpp::parser
 public:
 	std::string m_result{};
 private:
-	void on_enter_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override
+	void on_enter_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		// gets called when entering a block
 	}
-	void on_leave_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override
+	void on_leave_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		// gets called when exiting a block
 	}
-	void on_enter_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override
+	void on_enter_span(MD_SPANTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		// gets called when entering a span
 	}
-	void on_leave_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override
+	void on_leave_span(MD_SPANTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		// gets called when exiting a span
 	}
