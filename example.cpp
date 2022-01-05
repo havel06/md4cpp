@@ -11,7 +11,7 @@ public:
 private:
 	std::string m_result{};
 
-	void on_enter_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override
+	void on_enter_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		switch(type)
 		{
@@ -46,7 +46,7 @@ private:
 		}
 	}
 
-	void on_leave_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override
+	void on_leave_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		switch(type)
 		{
@@ -78,7 +78,7 @@ private:
 		}
 	}
 
-	void on_enter_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override
+	void on_enter_span(MD_SPANTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		switch(type)
 		{
@@ -125,7 +125,7 @@ private:
 		}
 	}
 
-	void on_leave_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override
+	void on_leave_span(MD_SPANTYPE type, const md4cpp::detail_variant& detail) override
 	{
 		switch(type)
 		{

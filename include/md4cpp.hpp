@@ -39,7 +39,7 @@ namespace md4cpp
 		 * @param Detail an std::variant containing
 		 * details about the block element.
 		 */
-		virtual void on_enter_block(MD_BLOCKTYPE type, detail_variant detail) {}
+		virtual void on_enter_block(MD_BLOCKTYPE type, const detail_variant& detail) {}
 		/**
 		 * Gets called when the parser encounters the end of a block element.
 		 *
@@ -50,7 +50,7 @@ namespace md4cpp
 		 * @param Detail an std::variant containing
 		 * details about the block element.
 		 */
-		virtual void on_leave_block(MD_BLOCKTYPE type, detail_variant detail) {}
+		virtual void on_leave_block(MD_BLOCKTYPE type, const detail_variant& detail) {}
 		/**
 		 * Gets called when the parser encounters the beginning of a span element.
 		 *
@@ -61,7 +61,7 @@ namespace md4cpp
 		 * @param Detail an std::variant containing
 		 * details about the span element.
 		 */
-		virtual void on_enter_span(MD_SPANTYPE type, detail_variant detail) {}
+		virtual void on_enter_span(MD_SPANTYPE type, const detail_variant& detail) {}
 		/**
 		 * Gets called when the parser encounters the end of a span element.
 		 *
@@ -72,7 +72,7 @@ namespace md4cpp
 		 * @param detail An std::variant containing
 		 * details about the span element.
 		 */
-		virtual void on_leave_span(MD_SPANTYPE type, detail_variant detail) {}
+		virtual void on_leave_span(MD_SPANTYPE type, const detail_variant& detail) {}
 		/**
 		 * Gets called when the parser encounters plain text.
 		 *
