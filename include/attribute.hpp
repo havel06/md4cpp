@@ -9,9 +9,9 @@ namespace md4cpp
 {
 	struct substring
 	{
-		std::string text;
+		std::string_view text;
 		MD_TEXTTYPE type;
-		substring(const std::string& t_text, MD_TEXTTYPE t_type) : text(t_text), type(t_type) {}
+		substring(std::string_view t_text, MD_TEXTTYPE t_type) : text(t_text), type(t_type) {}
 	};
 
 	struct attribute : public MD_ATTRIBUTE
@@ -29,7 +29,7 @@ namespace md4cpp
 			for(auto i = 0; this->substr_offsets[i] < this->size; i++)
 			{
 				size_t text_size = this->substr_offsets[i + 1] - this->substr_offsets[i];
-				retval.emplace_back(std::string(this->text, text_size), this->substr_types[i]);
+				retval.emplace_back(std::string_view(this->text, text_size), this->substr_types[i]);
 			}
 			return retval;
 		}
