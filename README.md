@@ -4,6 +4,8 @@ A C++ wrapper for the [md4c](https://github.com/mity/md4c) Markdown parser.
 
 The wrapper should provide a way to write more idiomatic C++ code when using the library.
 
+Requires the [md4c](https://github.com/mity/md4c) library to be installed (obviously).
+
 ## Usage
 
 ```cpp
